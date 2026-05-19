@@ -31,7 +31,7 @@ try:
 
     # ---- STEP B: Copy the file to Bucket 2 with a new name ----
     print(
-        f"\nA copiar e renomear de '{SOURCE_BUCKET}/{SOURCE_NAME}' para '{TARGET_BUCKET}/{TARGET_NAME}'..."
+        f"\nCopying and renaming from '{SOURCE_BUCKET}/{SOURCE_NAME}' to '{TARGET_BUCKET}/{TARGET_NAME}'..."
     )
 
     # The S3 requires the source structure as a dictionary or specific string
