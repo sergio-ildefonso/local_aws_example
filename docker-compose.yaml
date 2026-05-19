@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  floci:
+    image: floci/floci:latest-compat
+    container_name: floci_infra
+    ports:
+      - "4566:4566"
+      - "7001:7001" # to bridge Floci's RDS engine to your host
+    environment:
+      - FLOCI_STORAGE_MODE=persistent
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=mock_key
+      - AWS_SECRET_ACCESS_KEY=mock_secret
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
