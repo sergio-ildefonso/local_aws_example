@@ -2,7 +2,7 @@ import psycopg2
 from psycopg2 import Error
 
 try:
-    # 1. Estabelecer a ligação à base de dados no Floci (Porta 7001)
+    # 1. Connection to PostgreSQL
     connection = psycopg2.connect(
         user="admin",
         password="supersecret",
@@ -14,7 +14,7 @@ try:
     cursor = connection.cursor()
     print("Connection to PostgreSQL successfully established.")
 
-    # 2. Criar a tabela 'countries'
+    # 2. Create table 'countries'
     create_table_query = """
     CREATE TABLE IF NOT EXISTS countries (
         id SERIAL PRIMARY KEY,
@@ -40,12 +40,12 @@ try:
         ("França", "FR"),
     ]
 
+    # 4. Insert + Selecy Query to test database
     insert_query = "INSERT INTO countries (name, code) VALUES (%s, %s) ON CONFLICT (code) DO NOTHING;"
     cursor.executemany(insert_query, countries_to_insert)
     connection.commit()
     print(f"Successfully inserted {cursor.rowcount} new countries into the database.")
 
-    # 4. Validar a inserção fazendo um SELECT rápido
     cursor.execute("SELECT * FROM countries;")
     records = cursor.fetchall()
     print("\n--- List of countries in the database ---")
@@ -56,7 +56,7 @@ except (Exception, Error) as error:
     print("Error during SQL operations:", error)
 
 finally:
-    # 5. Garantir o fecho limpo das ligações
+    # 5. Clean close connections
     if "connection" in locals() and connection:
         cursor.close()
         connection.close()
